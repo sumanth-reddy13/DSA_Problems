@@ -24,3 +24,10 @@ public class MaximumProductSubarray {
         return maxValue;
     }
 }
+
+/**
+ *  At every iteration, we calculate curr[i], curr[i] * max, and curr[i] * min.
+ *  curr[i] is used if preious previous value is negative or zero. 
+ *  min value will be used if case of negative values. If previous and current value are negative, then their` product will be positive, so we need to keep track of the minimum value as well.
+ *  max value will be used if case of positive values.
+ */

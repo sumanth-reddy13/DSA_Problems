@@ -126,3 +126,29 @@ public class MaximumSubarray {
         return maxSum;;
 	}
 }
+
+
+// Print Max Subarray Sum
+
+public static printMaxSumSubaray(int[] nums) {
+	int maxSum = nums[0];
+	int currentSum = nums[0];
+	int start = 0;
+	int end = 0;
+	int tempStart = 0;
+
+	for (int i = 1; i < nums.length; i++) {
+		currentSum += nums[i];
+
+		if (currentSum < nums[i]) {
+			currentSum = nums[i];
+			tempStart = i;
+		}
+
+		if (currentSum > maxSum) {
+			maxSum = currentSum;
+			start = tempStart;
+			end = i;
+		}
+	}
+}
