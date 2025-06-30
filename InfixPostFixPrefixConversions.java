@@ -1,4 +1,10 @@
 import java.util.*; 
+
+/**
+    1. This file contains methods to convert infix expressions to postfix and prefix, and vice versa.
+	2. Operands are assumed to be single characters (A-Z, a-z).
+	3. Operators include +, -, *, /, and ^ (ordered by lower precedence to higher precedence).
+ */
 public class Main
 {
 	public static void main(String[] args) {
@@ -9,6 +15,10 @@ public class Main
 		System.out.println("Infix of postfix : " + PostfixToPrefix(postfix));
 	}
 	
+	/* 
+		1. Prefix to Postfix Conversion ->  Operand1 Operand2 Operator
+		2. TC: O(n) SC: O(n)
+	*/
 	public static String PrefixToPostfix(String prefix) {
 	    Stack<String> st = new Stack(); 
 	    StringBuilder infix = new StringBuilder(); 
@@ -31,7 +41,11 @@ public class Main
 	    
 	    return st.pop(); 
 	}
-	
+
+	/**
+	 	1. Postfix to Prefix Conversion ->  Operator Operand2 Operand1
+		2. TC: O(n) SC: O(n)
+	 */
 	public static String PostfixToPrefix(String postfix) {
 	    Stack<String> st = new Stack(); 
 	    StringBuilder infix = new StringBuilder(); 
@@ -55,6 +69,10 @@ public class Main
 	    return st.pop(); 
 	}
 	
+	/**
+	 	1. Prefix to Infix Conversion ->  ( Operand1 Operator Operand2 )
+		2. TC: O(n) SC: O(n)
+	 */
 	public static String PrefixToInfix(String prefix) {
 	    Stack<String> st = new Stack(); 
 	    StringBuilder infix = new StringBuilder(); 
@@ -79,7 +97,12 @@ public class Main
 	    
 	    return st.pop(); 
 	}
-	
+
+
+	/**
+	 	1. Postfix to Infix Conversion ->  ( Operand2 Operator Operand1 )
+	 	2. TC: O(n) SC: O(n)
+	 */
 	public static String PostfixToInfix(String postfix) {
 	    Stack<String> st = new Stack(); 
 	    StringBuilder infix = new StringBuilder(); 
@@ -105,6 +128,10 @@ public class Main
 	    return st.pop(); 
 	}
 	
+	/**
+	 	1. Infix to Prefix Conversion ->  Reverse the infix, convert to postfix, reverse the postfix
+	 	2. TC: O(n) SC: O(n)
+	 */	
 	public static String infixToPrefix(String infix) {
 	    String reversedString = reverseString(infix);
 	    String postfix = infixToPostfix(reversedString);
@@ -133,6 +160,10 @@ public class Main
 	    return new String(ch);
 	}
 	
+	/**
+	 	1. Infix to Postfix Conversion ->  If operand, add to postfix; if operator, pop from stack until precedence is less than current operator; if '(', push to stack; if ')', pop until '(' is found.
+	 	2. TC: O(n) SC: O(n)
+	 */
 	public static String infixToPostfix(String infix) {
 	    Stack<Character> st = new Stack<>();
 	    StringBuilder postfix = new StringBuilder(); 
