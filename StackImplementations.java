@@ -1,13 +1,6 @@
 class StackImplementations {
-
 	public static void main(String[] args) {
 	    
-	   // StackLinkedListImplementation st = new StackLinkedListImplementation(); 
-	   // st.push(1);
-	   // st.push(2);
-	   // st.push(3);
-	   // st.push(4);
-
 	    // Array Implementation of Stack
 	    int[] arr = new int[5];
 	    int index = 0; 
@@ -60,6 +53,13 @@ class StackImplementations {
 	}
 }
 
+/**
+ * Stack Implementation using Linked List
+ * 1. push operation is O(1).
+ * 2. pop and top operations are O(1).
+ * 3. value is inserted at the head of the linked list.
+ * 4. pop operation removes the head of the linked list.
+ */
 class StackLinkedListImplementation {
     private class Node {
         int data; 
@@ -114,3 +114,142 @@ class StackLinkedListImplementation {
     }
 }
     
+
+/**
+ * Stack Implementation using two Queues
+ * 1. push operation is costly, takes O(N) time.
+ * 2. pop and top operations are O(1).
+ */
+public class StackImplementationUsingQueue {
+    Queue<Integer> q1; 
+    Queue<Integer> q2; 
+    
+    public StackImplementationUsingQueue() {
+        q1 = new LinkedList<>(); 
+        q2 = new LinkedList<>(); 
+    }
+
+    /*
+        push operation is costly. Takes O(N)
+    */
+    public void push(int val) {
+        q1.offer(val);
+        
+        while (!q2.isEmpty()) {
+            q1.offer(q2.poll());
+        }
+        
+        Queue<Integer> temp = q1; 
+        q1 = q2; 
+        q2 = temp;
+    }
+    
+    public void pop() {
+        if (q2.isEmpty()) return; 
+        int val = q2.poll(); 
+        System.out.println("popped value: " + val);
+    }
+    
+    public void top() {
+        if (q2.isEmpty()) return;   // isEmpty() is Collection interface method. 
+        int val = q2.peek(); 
+        System.out.println("Top value: " + val);
+    }
+}
+
+
+/**
+ * Stack Implementation using two Queues
+ * 1. push operation is O(1).
+ * 2. pop and top operations are costly, takes O(N) time.
+ */
+public class StackImplementationUsingQueue1 {
+    Queue<Integer> q1; 
+    Queue<Integer> q2; 
+    
+    public StackImplementationUsingQueue1() {
+        q1 = new LinkedList<>(); 
+        q2 = new LinkedList<>(); 
+    }
+
+    public void push(int val) {
+        q1.offer(val);
+    }
+    
+    public void pop() {
+        if (q1.isEmpty()) return; 
+        
+        int size = q1.size(); 
+
+        while (q1.size() != 1) {
+            q2.offer(q1.poll());
+        }
+        
+        int val = q1.poll(); 
+        System.out.println("popped value: " + val);
+        
+        Queue<Integer> temp = q1; 
+        q1 = q2; 
+        q2 = temp; 
+    }
+    
+    public void top() {
+        if (q1.isEmpty()) return;   // isEmpty() is Collection interface method. 
+        int size = q1.size(); 
+        
+        while (q1.size() != 1) {
+            q2.offer(q1.poll());
+        }
+        
+        int val = q1.peek(); 
+        System.out.println("Top value: " + val);
+        q2.offer(q1.poll());
+        
+        Queue<Integer> temp = q1; 
+        q1 = q2; 
+        q2 = temp;
+    }
+}
+
+/**
+ * Stack Implementation using One Queue
+ * 1. push operation is O(1).
+ * 2. pop and top operations are costly, takes O(N) time.
+ */
+
+public class StackImplementationOneQueue {
+    Queue<Integer> q1; 
+    
+    public StackImplementationOneQueue() {
+        q1 = new LinkedList<>(); 
+    }
+
+    public void push(int val) {
+        q1.offer(val);
+    }
+    
+    public void pop() {
+        if (q1.isEmpty()) return; 
+        
+        int size = q1.size(); 
+        for (int i = 0; i < size - 1; i++) {
+            q1.offer(q1.poll());
+        }
+        
+        int val = q1.poll(); 
+        System.out.println("popped value: " + val);
+    }
+    
+    public void top() {
+        if (q1.isEmpty()) return; 
+        
+        int size = q1.size(); 
+        for (int i = 0; i < size - 1; i++) {
+            q1.offer(q1.poll());
+        }
+        
+        int val = q1.peek();
+        q1.offer(q1.poll());
+        System.out.println("Top value: " + val);
+    }
+}
