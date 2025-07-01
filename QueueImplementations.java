@@ -184,5 +184,144 @@ class QueueLLImple {
         }
         System.out.println();
     }
+}
+
+/**
+ 	1. Queue Implementation Using Two Stacks
+	2. offer operation is costly, takes O(N) time.
+	3. poll and peek operations are O(1).
+ */
+class QueueImplementationUsingStack {
+    Stack<Integer> s1; 
+    Stack<Integer> s2; 
     
+    public QueueImplementationUsingStack() {
+        s1 = new Stack<>(); 
+        s2 = new Stack<>();
+    }
+    
+    public void offer(int val) {
+        while (!s1.isEmpty()) {
+            s2.push(s1.pop());
+        }
+        s1.push(val);
+        
+        while (!s2.isEmpty()) {
+            s1.push(s2.pop());
+        }
+    }
+    
+    public void poll() {
+        if (s1.isEmpty()) {
+            System.out.println("Queue is empty");
+            return;
+        }
+        int val = s1.pop();
+        System.out.println("polled value: " + val);
+    }
+    
+    public void peek() {
+        if (s1.isEmpty()) {
+            System.out.println("Queue is empty");
+            return;
+        }
+        int val = s1.peek();
+        System.out.println("Peeked value: " + val);
+    }
+}
+
+
+/**
+	1. Queue Implementation Using Two Stacks.
+	2. offer operation takes O(1) time.
+	3. poll and peek operations take amortized O(1) time. 
+ */
+class QueueImplementationUsingStack1 {
+    Stack<Integer> s1; 
+    Stack<Integer> s2; 
+    
+    public QueueImplementationUsingStack1() {
+        s1 = new Stack<>(); 
+        s2 = new Stack<>();
+    }
+    
+    public void offer(int val) {
+        s1.push(val);
+    }
+    
+    public void poll() {
+        if (s1.isEmpty() && s2.isEmpty()) {
+            System.out.println("Queue is empty");
+            return;
+        }
+        
+        if (s2.isEmpty()) {
+            while (!s1.isEmpty()) {
+                s2.push(s1.pop());
+            }
+        }
+        
+        int val = s2.pop();
+        System.out.println("polled value: " + val);
+    }
+    
+    public void peek() {
+        if (s1.isEmpty() && s2.isEmpty()) {
+            System.out.println("Queue is empty");
+            return;
+        }
+        
+        if (s2.isEmpty()) {
+            while (!s1.isEmpty()) {
+                s2.push(s1.pop());
+            }
+        }
+        
+        int val = s2.peek();
+        System.out.println("Peeked value: " + val);
+    }
+}
+
+
+/**
+	1. Queue Implementation using Recursion
+	2. offer operation is O(1).
+	3. poll operation is O(N) due to recursion. space is O(N) as well.
+	4. peek operation is O(N) due to recursion. space is O(N) as well.
+ */
+public class QueueImplementationUsingRecursion {
+    Stack<Integer> s1; 
+    
+    public QueueImplementationUsingRecursion() {
+        s1 = new Stack(); 
+    }
+    
+    public void offer(int val) {
+        s1.push(val);
+    }
+    
+    public void poll() {
+        if (s1.isEmpty()) {
+            System.out.println("Queue is empty");
+            return;
+        }
+        
+        int val = recur();
+        System.out.println("dequeued value: " + val);
+    }
+    
+    public int recur() {
+        int x = s1.peek();
+        s1.pop(); 
+        
+        if (s1.isEmpty()) {
+            return x; 
+        }
+        
+        int temp = recur();
+        
+        s1.push(x);
+        
+        return temp; 
+    }
 }
