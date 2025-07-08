@@ -92,3 +92,98 @@ class CircularDequeImplementation {
 }
 
 // Deque implementation using Doubly LinkedList
+
+class Deque {
+    
+    private static class Node {
+        int data; 
+        Node next; 
+        Node prev; 
+        
+        public Node(int data) {
+            this.data = data; 
+            this.next = null;
+            this.prev = null; 
+        }
+    }
+    
+    int size = 0; 
+    Node front; 
+    Node tail; 
+    
+    public Deque() {
+        front = null;
+        tail = null; 
+    }
+    
+    public void offerFirst(int val) {
+        Node newNode = new Node(val);
+        if (isEmpty()) {
+            front = newNode;
+            tail = newNode;
+            size++; 
+            return; 
+        }
+        
+        newNode.next = front; 
+        front.prev = newNode;
+        front = newNode; 
+        size++;
+    }
+    
+    public void offerLast(int val) {
+        Node newNode = new Node(val);
+        if (isEmpty()) {
+            front = newNode;
+            tail = newNode;
+            size++; 
+            return; 
+        }
+        
+        tail.next = newNode; 
+        newNode.prev = tail; 
+        tail = newNode; 
+        size++;
+    }
+    
+    public void pollFirst() {
+        if (isEmpty()) return; 
+        front = front.next; 
+        
+        if (front != null) {
+            front.prev = null;
+        }
+        else {
+            tail = null; 
+        }
+        size--; 
+    }
+    
+    public void pollLast() {
+        if (isEmpty()) return; 
+        tail = tail.prev; 
+        
+        if (tail != null) {
+            tail.next = null;
+        }
+        else {
+            front = null; 
+        }
+        
+        size--; 
+    }
+    
+    public int peekFirst() {
+        if(isEmpty()) return -1; 
+        return front.data;
+    }
+    
+    public int peekLast() {
+        if (isEmpty()) return -1; 
+        return tail.data;
+    }
+    
+    public boolean isEmpty() {
+        return size == 0; 
+    }
+}
