@@ -4,6 +4,10 @@ import java.util.*;
     1. This file contains methods to convert infix expressions to postfix and prefix, and vice versa.
 	2. Operands are assumed to be single characters (A-Z, a-z).
 	3. Operators include +, -, *, /, and ^ (ordered by lower precedence to higher precedence).
+	4. We don't have parentheses in the postfix and prefix expressions.
+	5. Postfix - Reverse Polish Notation (RPN) where operators follow their operands.
+	6. Prefix - Polish Notation where operators precede their operands.
+	7. Infix - Standard notation where operators are between operands.
  */
 public class Main
 {

@@ -15,7 +15,29 @@ class MathProblems {
 		return true;
 	}
 
-	1. Sieve of Eratosthenes
-	2. 
+	/*
+	 	* Euclid's Algorithm to find GCD of two numbers.
+		* GCD(a, b) = GCD(b, a - b) if a >= b
+		* (a % b) does same thing as (a - b), but efficiently.
+	*/
+	public static int gcd(int a, int b) {
+		if (b == 0) return a;
+		return gcd(b, a % b);
+	}
 	
+	// Fast exponentiation
+	public static long fastExp(long base, long power, int mod) {
+	    long res = 1; 
+	    
+	    while (power != 0) {
+	        if ((power & 1) == 1) {
+	            res = (res * base) % mod; 
+	        }
+	        
+	        power = power >> 1; 
+	        base = (base * base) % mod; 
+	    }
+	    
+	    return res; 
+	}
 }
